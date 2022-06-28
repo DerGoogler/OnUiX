@@ -9,8 +9,8 @@ import light_theme from './light_theme';
  * @default light
  */
 export class UiXTheme {
-  private themeMode: string;
-  public constructor(themeMode: 'light' | 'dark') {
+  private themeMode: string | undefined;
+  public constructor(themeMode?: 'light' | 'dark') {
     this.themeMode = themeMode;
   }
 
