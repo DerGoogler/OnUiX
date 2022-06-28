@@ -1,0 +1,54 @@
+{
+  "name": "onuix",
+  "version": "1.3.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/onuix.esm.js",
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "resolutions": {
+    "**/typescript": "^4.1.3"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "Der_Googler",
+  "license": "MIT",
+  "dependencies": {
+    "jss": "^10.9.0",
+    "jss-preset-default": "^10.9.0",
+    "onsenui": "^2.12.0",
+    "react": ">=16",
+    "react-device-detect": "^2.2.2",
+    "react-dom": "^18.1.0",
+    "react-onsenui": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.10",
+    "@types/react-dom": "^18.0.5",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "files": [
+    "/dist"
+  ]
+}
