@@ -5,7 +5,7 @@ export class tools {
    * @returns {string} string
    */
   public static getSubPath(url: string) {
-    return window.location.href.replace(/(\?(.*?)=(.*)|\?)/gm, "") + url;
+    return window.location.href.replace(/(\?(.*?)=(.*)|\?)/gm, '') + url;
   }
 
   /**
@@ -15,28 +15,28 @@ export class tools {
    */
   public static validURL(input: string): boolean {
     var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
+      '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
     ); // fragment locator
     return !!pattern.test(input);
   }
 
   public static stringToBoolean(value: string) {
-    if (typeof value == "boolean") return value;
+    if (typeof value == 'boolean') return value;
     switch (value) {
-      case "true":
-      case "yes":
-      case "1":
+      case 'true':
+      case 'yes':
+      case '1':
         return true;
 
-      case "false":
-      case "no":
-      case "0":
+      case 'false':
+      case 'no':
+      case '0':
       case null:
         return false;
 
@@ -57,14 +57,25 @@ export class tools {
   }
 
   public static typeCheck(_: any, __: any) {
-    if (_ === undefined || _ === null || _ === "" || __ === 0 || _ === "0" || _ === false || _ === "false") {
+    if (
+      _ === undefined ||
+      _ === null ||
+      _ === '' ||
+      __ === 0 ||
+      _ === '0' ||
+      _ === false ||
+      _ === 'false'
+    ) {
       return __;
     } else {
       return _;
     }
   }
 
-  public static returnUndefined(value: undefined | any, theReturn: string | boolean | number): any {
+  public static returnUndefined(
+    value: undefined | any,
+    theReturn: string | boolean | number
+  ): any {
     if (value === undefined) {
       return theReturn;
     } else {
@@ -74,15 +85,24 @@ export class tools {
 
   public static setURL(
     callback: (
-      set: (data: any, unused: string, url?: string | URL | null | undefined) => void,
+      set: (
+        data: any,
+        unused: string,
+        url?: string | URL | null | undefined
+      ) => void,
       currentPath: string
     ) => void
   ): void {
     const loc = window.location.pathname;
-    const set = (data: any, unused: string, url?: string | URL | null | undefined) =>
+    const set = (
+      data: any,
+      unused: string,
+      url?: string | URL | null | undefined
+    ) =>
+      //@ts-ignore
       window.history.pushState(data, unused, url);
-    const currentPath: string = loc === "/" ? "" : loc;
-    if (typeof callback == "function") {
+    const currentPath: string = loc === '/' ? '' : loc;
+    if (typeof callback == 'function') {
       callback(set, currentPath);
     }
   }
