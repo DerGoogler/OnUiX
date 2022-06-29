@@ -7,6 +7,15 @@ import { ContentXView } from './View/ContentXView';
 import { GestureX } from './View/GestureX';
 import { ListViewX } from './View/ListViewX';
 
+export type HTMLAttributes<E, P = {}> = React.DetailedHTMLProps<
+  React.HTMLAttributes<E> & P,
+  E
+>;
+export type AnchorHTMLAttributes<E, P = {}> = React.DetailedHTMLProps<
+  React.AnchorHTMLAttributes<E> & P,
+  E
+>;
+
 export {
   XInit,
   ActivityX,

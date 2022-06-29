@@ -4,6 +4,7 @@ import React from 'react';
 import { Component, ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Page, RouterNavigator, RouterUtil } from 'react-onsenui';
+import { ContentXView } from '../View/ContentXView';
 
 export interface IIntentXPushProps {
   activity: any;
@@ -11,9 +12,11 @@ export interface IIntentXPushProps {
   extra?: any;
 }
 
-export type ThemeType<Name extends string = string> = Partial<
-  Styles<Name, any, undefined>
->;
+export type ThemeType<Name extends string = string> = {
+  [P in keyof Styles<Name, any, undefined>]?:
+    | Styles<Name, any, undefined>[P]
+    | undefined;
+};
 
 export interface XInitProps {
   component: ReactNode;
@@ -45,10 +48,10 @@ export class XInit extends Component<XInitProps, States> {
     this.state = { routeConfig, currentPage: 'main' };
   }
 
-  public componentDidMount() {
+  public componentDidMount = () => {
     jss.setup(preset());
     jss.createStyleSheet<'@global'>(this.props.theme).attach();
-  }
+  };
 
   private pushPage = (props: IIntentXPushProps): void & IIntentXPushProps => {
     const route = {
@@ -99,7 +102,7 @@ export class XInit extends Component<XInitProps, States> {
     this.setState({ routeConfig });
   };
 
-  private renderPage = (route: any) => {
+  private loadPage = (route: any): JSX.Element => {
     const props = route.props || {};
     return <route.component {...props} />;
   };
@@ -113,7 +116,7 @@ export class XInit extends Component<XInitProps, States> {
             // @ts-ignore
             swipePop={(options: any) => this.popPage(options)}
             routeConfig={this.state.routeConfig}
-            renderPage={this.renderPage}
+            renderPage={this.loadPage}
             onPostPush={() => this.onPostPush()}
             onPostPop={() => this.onPostPop()}
           />

@@ -1,9 +1,11 @@
 import React, { Component, ReactNode } from 'react';
+import { HTMLAttributes } from '..';
 import { findViewById } from '../utils/findViewById';
 
 /**
  * ViewX includes all HTML props, no need to add it extra
  */
+
 export class ViewX<Props = {}, State = {}, SS = any> extends Component<
   HTMLAttributes<Element> & Props,
   State,

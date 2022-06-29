@@ -178,7 +178,7 @@ declare module "react-onsenui" {
   // Still incomplete, see https://onsen.io/v2/api/react/RouterNavigator.html
   export class RouterNavigator extends Component<
     {
-      routeConfig: any;
+      routeConfig: this;
       renderPage(route: any, navigator?: Navigator): JSX.Element;
       swipeable?: boolean | "force" | undefined;
       swipePop?: ((options: any) => void) | undefined;
