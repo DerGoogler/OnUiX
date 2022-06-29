@@ -95,152 +95,160 @@ export class ListViewX extends ViewX<IProps> {
     this.pref = new SharedPreferences();
   }
 
-  public render() {
+  public createView = () => {
     const { data, pushPage } = this.props;
 
-    return data.map((header: IListInterface) => (
+    return (
       <>
-        <section
-          id={header.id}
-          className={header.className}
-          style={header.style}
-        >
-          <ListTitle>{header.title}</ListTitle>
-          {header.content.map((item: IListOptions) => (
-            <>
-              <ListItem
-                modifier={tools.typeCheck(item.modifier, '')}
-                tappable={tools.typeCheck(item.tappable, false)}
-                id={item.key + '-ListItem'}
-                style={item.style}
-                onClick={() => {
-                  if (typeof item.onClick == 'function') {
-                    const key = item.key;
-                    item.onClick(key, pushPage);
-                  }
-                }}
-              >
-                {item.icon ===
-                (null || '' || undefined) ? null : isValidElement(item.icon) ? (
-                  <div className="left">{item.icon}</div>
-                ) : null}
-                <GestureX
-                  event="hold"
-                  callback={() => {
-                    if (item.helper?.text) {
-                      ons.notification.alert({
-                        message: item.helper?.text,
-                        title: 'Info',
-                        buttonLabels: ['Ok'],
-                        animation: 'default',
-                        primaryButtonIndex: 1,
-                        cancelable: tools.typeCheck(
-                          item.helper?.cancelable,
-                          true
-                        ),
-                      });
-                    }
-                  }}
-                >
-                  <div className="center">
-                    {item.subtext === (null || '' || undefined) ? (
-                      item.text
-                    ) : (
-                      <>
-                        <span className="list-item__title">{item.text}</span>
-                        <span
-                          className="list-item__subtitle"
-                          style={{ display: 'block' }}
-                        >
-                          {item.subtext}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </GestureX>
-                <div className="right">
-                  {(() => {
-                    switch (item.type) {
-                      case 'switch':
-                        return (
-                          <Switch
-                            //@ts-ignore
-                            checked={this.pref.getBoolean(
-                              `${item.key!}_switch`,
-                              false
-                            )}
-                            disabled={item.disabled}
-                            onChange={(e: any) => {
-                              /**
-                               * This will keep the default funtion
-                               */
-                              const keepDefaultFuntion = (): void =>
-                                this.pref.setBoolean(
+        {data.map((header: IListInterface) => (
+          <>
+            <section
+              id={header.id}
+              className={header.className}
+              style={header.style}
+            >
+              <ListTitle>{header.title}</ListTitle>
+              {header.content.map((item: IListOptions) => (
+                <>
+                  <ListItem
+                    modifier={tools.typeCheck(item.modifier, '')}
+                    tappable={tools.typeCheck(item.tappable, false)}
+                    id={item.key + '-ListItem'}
+                    style={item.style}
+                    onClick={() => {
+                      if (typeof item.onClick == 'function') {
+                        const key = item.key;
+                        item.onClick(key, pushPage);
+                      }
+                    }}
+                  >
+                    {item.icon ===
+                    (null || '' || undefined) ? null : isValidElement(
+                        item.icon
+                      ) ? (
+                      <div className="left">{item.icon}</div>
+                    ) : null}
+                    <GestureX
+                      event="hold"
+                      callback={() => {
+                        if (item.helper?.text) {
+                          ons.notification.alert({
+                            message: item.helper?.text,
+                            title: 'Info',
+                            buttonLabels: ['Ok'],
+                            animation: 'default',
+                            primaryButtonIndex: 1,
+                            cancelable: tools.typeCheck(
+                              item.helper?.cancelable,
+                              true
+                            ),
+                          });
+                        }
+                      }}
+                    >
+                      <div className="center">
+                        {item.subtext === (null || '' || undefined) ? (
+                          item.text
+                        ) : (
+                          <>
+                            <span className="list-item__title">
+                              {item.text}
+                            </span>
+                            <span
+                              className="list-item__subtitle"
+                              style={{ display: 'block' }}
+                            >
+                              {item.subtext}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </GestureX>
+                    <div className="right">
+                      {(() => {
+                        switch (item.type) {
+                          case 'switch':
+                            return (
+                              <Switch
+                                //@ts-ignore
+                                checked={this.pref.getBoolean(
                                   `${item.key!}_switch`,
-                                  e.target.checked
-                                );
-                              if (typeof item.callback == 'function') {
-                                const key = item.key;
-                                item.callback(e, key, keepDefaultFuntion());
-                              } else {
-                                keepDefaultFuntion();
-                              }
-                            }}
-                          ></Switch>
-                        );
-                      case 'select':
-                        return (
-                          <Select
-                            disabled={item.disabled}
-                            // @ts-ignore --> Argument of type 'string | undefined' is not assignable to parameter of type 'string'. Type 'undefined' is not assignable to type 'string'.ts(2345)
-                            value={this.pref.getString(
-                              `${item.key!}_select`,
-                              //@ts-ignore
-                              item.selectDefaultValue
-                            )}
-                            onChange={(e: any) => {
-                              const keepDefaultFuntion = () =>
-                                this.pref.setString(
+                                  false
+                                )}
+                                disabled={item.disabled}
+                                onChange={(e: any) => {
+                                  /**
+                                   * This will keep the default funtion
+                                   */
+                                  const keepDefaultFuntion = (): void =>
+                                    this.pref.setBoolean(
+                                      `${item.key!}_switch`,
+                                      e.target.checked
+                                    );
+                                  if (typeof item.callback == 'function') {
+                                    const key = item.key;
+                                    item.callback(e, key, keepDefaultFuntion());
+                                  } else {
+                                    keepDefaultFuntion();
+                                  }
+                                }}
+                              ></Switch>
+                            );
+                          case 'select':
+                            return (
+                              <Select
+                                disabled={item.disabled}
+                                // @ts-ignore --> Argument of type 'string | undefined' is not assignable to parameter of type 'string'. Type 'undefined' is not assignable to type 'string'.ts(2345)
+                                value={this.pref.getString(
                                   `${item.key!}_select`,
-                                  e.target.value
-                                );
-                              if (typeof item.callback == 'function') {
-                                const key = item.key;
-                                item.callback(e, key, keepDefaultFuntion());
-                              } else {
-                                keepDefaultFuntion();
-                              }
-                            }}
-                          >
-                            <option value="" selected disabled hidden>
-                              {item.selectDefaultText
-                                ? item.selectDefaultText
-                                : 'Choose'}
-                            </option>
-                            {item.selectValue?.map(
-                              (select: IListSelectValue) => (
-                                <>
-                                  <option
-                                    value={select.value}
-                                    disabled={select.disabled}
-                                  >
-                                    {select.text}
-                                  </option>
-                                </>
-                              )
-                            )}
-                          </Select>
-                        );
-                      default:
-                        return;
-                    }
-                  })()}
-                </div>
-              </ListItem>
-            </>
-          ))}
-        </section>
+                                  //@ts-ignore
+                                  item.selectDefaultValue
+                                )}
+                                onChange={(e: any) => {
+                                  const keepDefaultFuntion = () =>
+                                    this.pref.setString(
+                                      `${item.key!}_select`,
+                                      e.target.value
+                                    );
+                                  if (typeof item.callback == 'function') {
+                                    const key = item.key;
+                                    item.callback(e, key, keepDefaultFuntion());
+                                  } else {
+                                    keepDefaultFuntion();
+                                  }
+                                }}
+                              >
+                                <option value="" selected disabled hidden>
+                                  {item.selectDefaultText
+                                    ? item.selectDefaultText
+                                    : 'Choose'}
+                                </option>
+                                {item.selectValue?.map(
+                                  (select: IListSelectValue) => (
+                                    <>
+                                      <option
+                                        value={select.value}
+                                        disabled={select.disabled}
+                                      >
+                                        {select.text}
+                                      </option>
+                                    </>
+                                  )
+                                )}
+                              </Select>
+                            );
+                          default:
+                            return;
+                        }
+                      })()}
+                    </div>
+                  </ListItem>
+                </>
+              ))}
+            </section>
+          </>
+        ))}
       </>
-    ));
-  }
+    );
+  };
 }

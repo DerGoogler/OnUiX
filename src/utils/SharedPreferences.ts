@@ -115,8 +115,8 @@ export class SharedPreferences implements ISharedPreferences {
   [name: string]: any;
 
   // Statics
-  //@ts-ignore
-  private static s: ISharedPreferences = new this();
+
+  private static s: ISharedPreferences = new SharedPreferences();
 
   public static setString(key: string, value: string): void {
     this.s.setString(key, value);
@@ -191,6 +191,4 @@ export class SharedPreferences implements ISharedPreferences {
   public static clearPrefs(): void {
     this.s.clearPrefs();
   }
-  //@ts-ignore
-  static [name: string]: any;
 }

@@ -1,8 +1,9 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Page } from 'react-onsenui';
 import { ContentXView } from '../View/ContentXView';
+import { ViewX } from './ViewX';
 
-export class ActivityX<Props = {}, State = {}, SS = any> extends Component<
+export class ActivityX<Props = {}, State = {}, SS = any> extends ViewX<
   Props,
   State,
   SS
@@ -20,39 +21,39 @@ export class ActivityX<Props = {}, State = {}, SS = any> extends Component<
   /**
    * Creates the activity
    */
-  protected onCreate(): JSX.Element {
+  public onCreate(): JSX.Element {
     return <></>;
   }
 
   /**
    * Renders the Toolbar
    */
-  protected onCreateToolbar(): JSX.Element {
+  public onCreateToolbar(): JSX.Element {
     return <></>;
   }
 
-  protected onCreateModal(): JSX.Element {
+  public onCreateModal(): JSX.Element {
     return <></>;
   }
 
-  protected onCreateBottomToolbar(): JSX.Element {
+  public onCreateBottomToolbar(): JSX.Element {
     return <></>;
   }
 
-  protected onCreateFAB(): JSX.Element {
+  public onCreateFAB(): JSX.Element {
     return <></>;
   }
 
-  protected onInit(): void {}
+  public onInit(): void {}
 
-  protected onShow(): void {}
+  public onShow(): void {}
 
-  protected onHide(): void {}
+  public onHide(): void {}
 
-  protected onInfiniteScroll(): void {}
+  public onInfiniteScroll(): void {}
 
   //@ts-ignore
-  protected get pageModifier(): string {
+  public get pageModifier(): string {
     return '';
   }
 
@@ -60,7 +61,7 @@ export class ActivityX<Props = {}, State = {}, SS = any> extends Component<
    * Don't use render in a ActivityX component
    * @deprecated
    */
-  public render(): ReactNode {
+  public render = (): ReactNode => {
     return (
       <Page
         modifier={this.pageModifier}
@@ -78,5 +79,5 @@ export class ActivityX<Props = {}, State = {}, SS = any> extends Component<
         </ContentXView>
       </Page>
     );
-  }
+  };
 }

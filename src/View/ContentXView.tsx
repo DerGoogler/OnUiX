@@ -17,23 +17,21 @@ export class ContentXView extends ViewX {
     padding: isMobile ? '' : '45px',
   };
 
-  private checkDevice(designWeb: any, designAndroid: any) {
+  private checkDevice = (designWeb: any, designAndroid: any) => {
     if (isAndroid) {
       return designAndroid;
     } else {
       return designWeb;
     }
-  }
+  };
 
-  public render() {
+  public createView = () => {
     return (
-      <content-x-view
-        style={this.checkDevice({ padding: isMobile ? '' : '16px' }, {})}
-      >
-        <content-x-view-inner style={this.checkDevice(this.stlye, {})}>
+      <div style={this.checkDevice({ padding: isMobile ? '' : '16px' }, {})}>
+        <div style={this.checkDevice(this.stlye, {})}>
           {this.props.children}
-        </content-x-view-inner>
-      </content-x-view>
+        </div>
+      </div>
     );
-  }
+  };
 }

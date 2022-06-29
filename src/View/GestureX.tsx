@@ -1,6 +1,5 @@
 import React, { createRef, RefObject, ReactNode } from 'react';
 import { ViewX } from '../extend/ViewX';
-import { findViewById } from '../utils/findViewById';
 
 interface Props {
   event:
@@ -34,18 +33,18 @@ export class GestureX extends ViewX<Props, {}> {
     super(props);
     this.gerstureID = createRef();
   }
-  public componentDidMount() {
+  public componentDidMount = () => {
     const { callback, event } = this.props;
 
     // Find element
-    new findViewById<HTMLDivElement>(this.gerstureID).get?.addEventListener(
+    this.findViewById<HTMLDivElement>(this.gerstureID)?.addEventListener(
       event,
       callback
     );
-  }
+  };
 
-  public render() {
+  public createView = () => {
     const { children } = this.props;
     return <div ref={this.gerstureID}>{children}</div>;
-  }
+  };
 }

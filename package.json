@@ -1,6 +1,6 @@
 {
   "name": "onuix",
-  "version": "1.4.0",
+  "version": "1.4.3",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "prepare": "tsdx build"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=18"
   },
   "husky": {
     "hooks": {
